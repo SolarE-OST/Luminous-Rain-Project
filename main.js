@@ -63,7 +63,12 @@ const config = {
         //Test,
         MainMenu,
         Tracklist,
-        stageIndex.S1_1,
+        stageIndex.C1_1,
+        stageIndex.C1_2,
+        stageIndex.C1_3,
+        stageIndex.C1_4,
+        stageIndex.C1_5,
+        stageIndex.C1_B,
     ]
 };
 

@@ -246,6 +246,7 @@ export let Graphics = {
     fontSize = h - 24, 
     unlocked = true,
     xscale = 1,
+    align = "center",
     tooltip = {title: false},
     scrollFactor=0.1}) {
     let buttonFrame = this.add.rectangle(x, y, w, h, 0x646496).setStrokeStyle(10, 0x505082).setScrollFactor(scrollFactor);
@@ -255,11 +256,15 @@ export let Graphics = {
     */
     let buttonText = this.add.text(x, y, text, {
       fontSize: fontSize,
-      align: "center",
+      align: align,
       color: "#f0f076",
       stroke: "#505082",
       strokeThickness: 10,
     }).setOrigin(0.5, 0.5).setScrollFactor(scrollFactor).setScale(xscale, 1);
+    if (align === "left") {
+      buttonText.setOrigin(0, 0.5);
+      buttonText.setX(x - w / 2 + 12);
+    }
     if (!unlocked) {
       buttonFrame.setAlpha(0.4);
       buttonFrame.setStrokeStyle();

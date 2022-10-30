@@ -7,34 +7,34 @@ export const Stages = {
         stages: [
             {
                 key: "Lost Memory",
-                obj: new stageIndex.S1_1(),
+                obj: new stageIndex.C1_1(),
                 short: "1"
-            },/*
+            },
             {
-                key: "Lost Memory",
-                obj: new stageIndex.S1_1(),
+                key: "MagiCatz",
+                obj: new stageIndex.C1_2(),
                 short: "2"
             },
             {
-                key: "Lost Memory",
-                obj: new stageIndex.S1_1(),
+                key: "Altale",
+                obj: new stageIndex.C1_3(),
                 short: "3"
             },
             {
-                key: "Lost Memory",
-                obj: new stageIndex.S1_1(),
+                key: "Kronos",
+                obj: new stageIndex.C1_4(),
                 short: "4"
             },
             {
-                key: "Lost Memory",
-                obj: new stageIndex.S1_1(),
+                key: "Reprologue",
+                obj: new stageIndex.C1_5(),
                 short: "5"
             },
             {
-                key: "Lost Memory",
-                obj: new stageIndex.S1_1(),
+                key: "Cyber Meteoroid",
+                obj: new stageIndex.C1_B(),
                 short: "B"
-            },*/
+            },
         ]
     }
 }

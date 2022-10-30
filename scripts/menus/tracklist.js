@@ -35,6 +35,9 @@ export default class Tracklist extends Phaser.Scene {
                         w: 500,
                         h: 70,
                         text: short + ": " + stage.obj.title,
+                        fontSize: 40,
+                        align: "left",
+                        xscale: Math.min(1, 19 / (stage.obj.title.length + 6)),
                         callback: this.sceneTransition(stage.key, true)
                     })
                 );
@@ -61,14 +64,23 @@ export default class Tracklist extends Phaser.Scene {
         this.scroll = 0;
 
         this.input.on("wheel", (pointer, gameObjects, dx, dy, dz) => {
-            if (!(this.stageButtons.getChildren()[0].getChildren()[0].y > 200 && dy > 0)) {
+            if (!(this.stageButtons.getChildren()[0].getChildren()[0].y > 200 && dy > 0) && !(this.stageButtons.getChildren()[this.stageButtons.getLength() - 1].getChildren()[0].y < 400 && dy < 0)) {
                 for (let stageButton of this.stageButtons.getChildren()) {
-                    stageButton.incY(dy * 0.5);
+                    stageButton.incY(dy * -0.5);
                 }
             }
             if (this.stageButtons.getChildren()[0].getChildren()[0].y > 200) {
-                this.stageButtons.getChildren()[0].setY(200);
-                console.log("no");
+                let buttonY = 200;
+                for (let button of this.stageButtons.getChildren()) {
+                    button.setY(buttonY);
+                    buttonY += 90;
+                }
+            } else if (this.stageButtons.getChildren()[this.stageButtons.getLength() - 1].getChildren()[0].y < 400) {
+                let buttonY = 400;
+                for (let i = this.stageButtons.getLength() - 1; i >= 0; i--) {
+                    this.stageButtons.getChildren()[i].setY(buttonY);
+                    buttonY -= 90;
+                }
             }
         });
 
