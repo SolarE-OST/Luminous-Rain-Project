@@ -30,18 +30,48 @@ export default class Tracklist extends Phaser.Scene {
                 let short = Stages[chapter].short + "-" + stage.short;
                 this.stageButtons.add(
                     this.button({
-                        x: 300,
+                        x: 275,
                         y: buttonY,
-                        w: 500,
+                        w: 450,
                         h: 70,
                         text: short + ": " + stage.obj.title,
                         fontSize: 40,
                         align: "left",
-                        xscale: Math.min(1, 19 / (stage.obj.title.length + 6)),
+                        xscale: Math.min(1, 17 / (stage.obj.title.length + 6)),
                         callback: this.sceneTransition(stage.key, true),
                         onHover: () => {
                             let stageInfo = this.add.group();
-                            stageInfo.add(this.add.rectangle(725, 300, 250, 500, 0xaaaaaa).setAlpha(0.7).setScrollFactor(0.1));
+                            stageInfo.add(this.add.rectangle(700, 300, 300, 500, 0xaaaaaa).setAlpha(0.7).setScrollFactor(0.1));
+                            stageInfo.add(this.add.text(700, 100, stage.obj.title, {
+                                fontSize: 400 / Math.max(10, stage.obj.title.length),
+                                align: "center",
+                                color: "#f0f076",
+                                stroke: "#f0f076",
+                                strokeThickness: 1,
+                                padding: {
+                                  x: 60,
+                                  y: 60
+                                }
+                            })
+                                .setShadow(0, 0, "#f0f076", 20)
+                                .setOrigin(0.5, 0.5)
+                                .setScrollFactor(0.1)
+                            );
+                            stageInfo.add(this.add.text(700, 150, stage.obj.artist, {
+                                fontSize: 20,
+                                align: "center",
+                                color: "#f0f076",
+                                stroke: "#f0f076",
+                                strokeThickness: 1,
+                                padding: {
+                                  x: 60,
+                                  y: 60
+                                }
+                            })
+                                .setShadow(0, 0, "#f0f076", 20)
+                                .setOrigin(0.5, 0.5)
+                                .setScrollFactor(0.1)
+                            );
 
 
                             return stageInfo;
@@ -100,5 +130,6 @@ export default class Tracklist extends Phaser.Scene {
     }
 
     update() {
+        this.cameras.main.pan((this.input.mousePointer.x + 910) * 0.3, (this.input.mousePointer.y + 700) * 0.3, 100, Phaser.Math.Easing.Quadratic.InOut, true);
     }
 }

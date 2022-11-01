@@ -42,11 +42,14 @@ export default class Stage extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("glow particle", "assets/particle.png");
+    this.loadingScene = this.scene.launch("Loading", this);
+    this.doneLoading = false;
+    console.log("starting preload");
     this.load.audio("graze", "assets/sfx/graze.wav");
     this.load.audio("hit", "assets/sfx/hit.wav");
     this.load.audio("life", "assets/sfx/extend.wav");
     this.load.audio("bgm", this.songPath);
+    console.log("preloaded");
   }
 
   /**
@@ -311,8 +314,8 @@ export default class Stage extends Phaser.Scene {
   }
 
   create() {
+    console.log("initializing");
     // loading circle (may implement progress bar later)
-    this.glowParticle = this.add.particles("glow particle");
     //this.loadingCircle();
 
     // initialize sound effects
@@ -326,39 +329,25 @@ export default class Stage extends Phaser.Scene {
     // init all the game stuff
     this.initVariables();
     this.initGUI();
+    console.log("initializing music");
     this.initMusic("bgm");
+    console.log("music initialized");
     this.initPlayer();
     this.initControls();
     this.initGameObjects();
     this.initCollisions();
 
+    console.log("generating droplet map");
     this.buildBeatmap();
     this.generateTimemap();
-
-    /*
-		this.test = new Droplets.Droplet(this, {
-			motion: new Motion.Kinematic({
-				x: 500,
-				y: 400,
-				vx: -2,
-				vy: -5,
-				duration: 100
-			})
-		});
-		*/
-
-    this.patternTest = new Patterns.Explode({
-      x: 300,
-      y: 100,
-      num: 200,
-      speed: 10,
-      speedRange: 1
-    });
-    this.dropletArrayTest = [];
+    console.log("droplet map generated");
 
     // fade in transition
     this.cameras.main.setBackgroundColor(this.startingBackgroundColor);
     this.cameras.main.fadeIn(1000, 0, 0, 0);
+    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, (cam, effect) => {
+      this.doneLoading = true;
+    });
   }
 
   /**

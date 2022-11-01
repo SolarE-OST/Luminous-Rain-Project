@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 import MainMenu from "./scripts/menus/main_menu.js";
 import Tracklist from "./scripts/menus/tracklist.js";
+import Loading from "./scripts/menus/loading.js";
 
 import Stage from "./scripts/stage.js";
 
@@ -63,6 +64,7 @@ const config = {
         //Test,
         MainMenu,
         Tracklist,
+        Loading,
         stageIndex.C1_1,
         stageIndex.C1_2,
         stageIndex.C1_3,
