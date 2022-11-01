@@ -38,7 +38,14 @@ export default class Tracklist extends Phaser.Scene {
                         fontSize: 40,
                         align: "left",
                         xscale: Math.min(1, 19 / (stage.obj.title.length + 6)),
-                        callback: this.sceneTransition(stage.key, true)
+                        callback: this.sceneTransition(stage.key, true),
+                        onHover: () => {
+                            let stageInfo = this.add.group();
+                            stageInfo.add(this.add.rectangle(725, 300, 250, 500, 0xaaaaaa).setAlpha(0.7).setScrollFactor(0.1));
+
+
+                            return stageInfo;
+                        }
                     })
                 );
                 buttonY += 90;

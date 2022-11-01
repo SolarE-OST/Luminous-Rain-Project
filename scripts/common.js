@@ -247,7 +247,7 @@ export let Graphics = {
     unlocked = true,
     xscale = 1,
     align = "center",
-    tooltip = {title: false},
+    onHover = () => this.add.group(),
     scrollFactor=0.1}) {
     let buttonFrame = this.add.rectangle(x, y, w, h, 0x646496).setStrokeStyle(10, 0x505082).setScrollFactor(scrollFactor);
     /*
@@ -277,21 +277,35 @@ export let Graphics = {
         .on("pointerover", () => {
         buttonFrame.scale = 1.1;
         buttonText.setScale(1.1 * xscale, 1.1);
-        if (tooltip.title) {
-          this.makeTooltip(x, y, tooltip, scrollFactor);
-        }
+        this.currentHover = onHover();
         this.select.play();
+        if (align === "left") {
+          buttonText.setX(x - w / 2 * 1.1 + 12);
+        }
       })
         .on("pointerout", () => {
         buttonFrame.scale = 1;
         buttonText.setScale(xscale, 1);
-        if (tooltip.title) {
-          this.tooltip.destroy(true);
+        this.currentHover.destroy(true);
+        if (align === "left") {
+          buttonText.setX(x - w / 2 + 12);
         }
       })
         .on("pointerdown", () => {
-        this.ok.play();
-        callback();
+          buttonFrame.scale = 0.9;
+          buttonText.setScale(0.9 * xscale, 0.9);
+          if (align === "left") {
+            buttonText.setX(x - w / 2 * 0.9 + 12);
+          }
+      })
+        .on("pointerup", () => {
+          buttonFrame.scale = 1;
+          buttonText.setScale(xscale, 1);
+          if (align === "left") {
+            buttonText.setX(x - w / 2 + 12);
+          }
+          this.ok.play();
+          callback();
       });
     }
     
