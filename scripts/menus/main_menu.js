@@ -20,23 +20,30 @@ export default class MainMenu extends Phaser.Scene {
         this.load.audio("menumusic", "assets/music/menu/0f.mp3");
     }
 
-    create() {
+    create(data) {
         this.select = this.sound.add("select");
         this.ok = this.sound.add("ok");
         this.select.volume = settings.soundEffectVolume;
         this.ok.volume = settings.soundEffectVolume;
-        this.initMusic("menumusic");
+        if (data.music !== undefined && data.music.isPlaying) { 
+            this.music = data.music;
+            this.ampPrevArray = new Array(settings.flickerSmoothLen).fill(0);
+        } else {
+            this.initMusic("menumusic");
+            //this.music.play({seek: 15.9});
+        }
+        this.transitioning = false;
         
 
         this.titleText = this.glowingText(450, 120, "Luminous Rain", 100, "#f0f076", 3);
 
         this.button({x: 450, y: 250, w: 650, h: 70, text: "Play (World, NYI)", 
-            callback: this.sceneTransition("Tracklist", true, { //change scene key later
+            callback: this.sceneTransition("Tracklist", false, { //change scene key later
                 music: this.music
             }),
         });
         this.button({x: 450, y: 340, w: 650, h: 70, text: "Play (Tracklist)", 
-            callback: this.sceneTransition("Tracklist", true, {
+            callback: this.sceneTransition("Tracklist", false, {
                 music: this.music
             }),
         });

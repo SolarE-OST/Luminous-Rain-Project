@@ -72,6 +72,39 @@ export default class Tracklist extends Phaser.Scene {
                                 .setOrigin(0.5, 0.5)
                                 .setScrollFactor(0.1)
                             );
+                            stageInfo.add(this.add.text(570, 450, "Difficulty: " + stage.obj.difficulty, {
+                                fontSize: 20,
+                                align: "left",
+                                color: "#ffffff",
+                            })
+                                .setOrigin(0, 0.5)
+                                .setScrollFactor(0.1)
+                            );
+                            stageInfo.add(this.add.text(570, 475, "Length: " + stage.obj.songDuration, {
+                                fontSize: 20,
+                                align: "left",
+                                color: "#ffffff",
+                            })
+                                .setOrigin(0, 0.5)
+                                .setScrollFactor(0.1)
+                            );
+                            stageInfo.add(this.add.text(570, 500, "Tempo: " + stage.obj.tempo + " BPM", {
+                                fontSize: 20,
+                                align: "left",
+                                color: "#ffffff",
+                            })
+                                .setOrigin(0, 0.5)
+                                .setScrollFactor(0.1)
+                            );
+                            stageInfo.add(this.add.rectangle(700, 300, 250, 250, 0x777777).setScrollFactor(0.1));
+                            stageInfo.add(this.add.text(700, 300, "Pretend\nthere's some\nreally cool\nartwork here", {
+                                fontSize: 28,
+                                align: "center",
+                                color: "#ffffff"
+                            })
+                                .setOrigin(0.5, 0.5)
+                                .setScrollFactor(0.1)
+                            );
 
 
                             return stageInfo;
@@ -93,10 +126,23 @@ export default class Tracklist extends Phaser.Scene {
             this.ampPrevArray = new Array(settings.flickerSmoothLen).fill(0);
         } else {
             this.initMusic("menumusic");
-            this.music.play({seek: 15.9});
+            //this.music.play({seek: 15.9});
         }
+        this.transitioning = false;
+
 
         this.generateTracklist();
+
+        this.button({
+            x: 825,
+            y: 50,
+            w: 100,
+            h: 40,
+            text: "Back",
+            callback: this.sceneTransition("Main Menu", false, {
+                music: this.music
+            }),
+        })
 
         this.scroll = 0;
 
@@ -125,11 +171,15 @@ export default class Tracklist extends Phaser.Scene {
         
         this.rainfall(0);
         this.cameras.main.setBackgroundColor("#1e1e46");
-        this.cameras.main.fadeIn(2000, 0, 0, 0);
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
         
     }
 
     update() {
+        if (!this.music.isPlaying && !this.transitioning) {
+            this.music.play({seek: 15.9});
+        }
+
         this.cameras.main.pan((this.input.mousePointer.x + 910) * 0.3, (this.input.mousePointer.y + 700) * 0.3, 100, Phaser.Math.Easing.Quadratic.InOut, true);
     }
 }

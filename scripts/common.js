@@ -129,9 +129,10 @@ export let MusicScenes = {
   
   sceneTransition(key, stopMusic = true, music = {}) {
     return () => {
+      /*
       if (!this.music.isPlaying) {
         return;
-      }
+      }*/
       if (this.transitioning) {
         return;
       } else {

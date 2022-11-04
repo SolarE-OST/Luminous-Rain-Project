@@ -17,7 +17,7 @@ export default class CyberMeteoroid extends Stage {
 		this.artist = "Sakuzyo"; // Artist of track for stage (usually Sakuzyo lol)
 		this.subtitle = "Never give up..."; // Subtitle (displayed under title)
 		this.songDuration = "3:07"; // Duration of song, display only
-        this.difficulty = 3; // Difficulty (1-10, sometimes 11, rarely 12)
+        this.difficulty = 8; // Difficulty (1-10, sometimes 11, rarely 12)
 		this.tempo = 145; // Starting tempo of track (in beats per minute BPM)
 		this.offset = 0; // How long to wait after starting music: increase if droplets are too early, decrease if droplets are too late
 		this.wait = 0; // How long to wait for music to start (may be obsolete)
