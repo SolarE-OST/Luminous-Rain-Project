@@ -3,6 +3,7 @@ import Phaser from "phaser";
 import MainMenu from "./scripts/menus/main_menu.js";
 import Tracklist from "./scripts/menus/tracklist.js";
 import Loading from "./scripts/menus/loading.js";
+import Pause from "./scripts/menus/pause.js";
 
 import Stage from "./scripts/stage.js";
 
@@ -38,33 +39,12 @@ const config = {
         ]
     },
     */
-    /*
-    scene: [
-        MainMenu,
-        LevelSelect,
-        GameOver,
-        Cleared,
-        Options,
-        Pause,
-        
-        BPMRT,
-        
-        Glow,
-        
-        // story 1
-        LostMemory,
-        Magicatz,
-        Altale,
-        Kronos,
-        Reprologue,
-        CyberMeteoroid,
-    ],
-    */
     scene: [
         //Test,
         MainMenu,
         Tracklist,
         Loading,
+        Pause,
         stageIndex.C1_1,
         stageIndex.C1_2,
         stageIndex.C1_3,

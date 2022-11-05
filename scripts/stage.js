@@ -203,6 +203,24 @@ export default class Stage extends Phaser.Scene {
     this.shift = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SHIFT
     );
+    this.input.keyboard.on("keydown-ESC", () => {
+      if (this.t > 0 && this.t < this.music.totalDuration * 60) {
+        this.music.pause();
+        this.scene.launch("Pause", {
+          levelName: this.levelName,
+          title: this.title,
+          composer: this.composer,
+          progress: this.t / (this.music.totalDuration * 60),
+        });
+        this.scene.pause();
+        //this.scene.moveBelow("Pause");
+        //this.scene.moveBelow("Pause");
+        //this.scene.setVisible(true, "Pause");
+      }
+    });
+    this.events.on("resume", () => {
+      this.music.resume();
+    })
   }
 
   /**
