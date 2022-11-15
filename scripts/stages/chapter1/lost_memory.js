@@ -5,6 +5,7 @@ import Stage from "../../stage.js";
 import * as Droplets from "../../droplets/droplet.js";
 import * as Motion from "../../droplets/motion.js";
 import {Patterns} from "../../droplets/patterns.js";
+import * as Effects from "../../effects.js";
 
 import {Utils, Graphics} from "../../common.js";
 
@@ -111,7 +112,7 @@ export default class LostMemory extends Stage {
                 [5.5, Patterns.fall(Utils.random(525, 575))],
                 [6.5, Patterns.fall(Utils.random(525, 575))],
             ],
-            [
+            [/*
                 [1, Patterns.rain({
                     duration: this.getTime(24),
                     interval: 15,
@@ -119,7 +120,7 @@ export default class LostMemory extends Stage {
                     other: {
                         color: 0x00ffff
                     }
-                })],
+                })],*/
                 [1, Patterns.firework({x: 200})],
                 [4, Patterns.firework({x: 400})],
             ],
@@ -142,6 +143,7 @@ export default class LostMemory extends Stage {
                 [6, Patterns.fall(75)],
             ],
             [
+                /*
                 [1, Patterns.rain({
                     duration: this.getTime(21),
                     interval: 15,
@@ -149,7 +151,7 @@ export default class LostMemory extends Stage {
                     other: {
                         color: 0x00ffff
                     }
-                })],
+                })],*/
                 [1, Patterns.firework({x: 200})],
                 [4, Patterns.firework({x: 400})],
             ],
@@ -464,7 +466,91 @@ export default class LostMemory extends Stage {
                     warnTime: this.getTime(1),
                     other: { color: 0xff0000 }
                 })],
+                [3, Patterns.fall(360)],
+                [4, Patterns.fall(300)],
+                [5, Patterns.fall(240)],
+                [6, Patterns.fall(180)],
+                [6, Patterns.explode({x: Utils.random(50, 550), num: 3, other: {color:0xff0000}})],
             ],
+            [
+                [1, Patterns.explode({x: Utils.random(50, 550), other: {color:0xff0000}})],
+                [1, Patterns.fall(120)],
+                [2, Patterns.fall(180)],
+                [3, Patterns.fall(240)],
+                [4, Patterns.fall(120)],
+                [4, Patterns.explode({x: 150, num: 3, other: {color:0xff0000}})],
+                [5, Patterns.fall(60)],
+                [5.5, Patterns.explode({x: 300, num: 3, other: {color:0xff0000}})],
+                [6, Patterns.fall(120)],
+            ],
+            [
+                [1, Patterns.explode({x: 450, other: {color:0xff0000}})],
+                [1, Patterns.fall(360)],
+                [3, Patterns.fall(360)],
+                [4, Patterns.fall(300)],
+                [5, Patterns.fall(240)],
+                [6, Patterns.fall(180)],
+                [6, Patterns.explode({x: Utils.random(50, 550), num: 3, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: Utils.random(50, 550), other: {color:0xff0000}})],
+                [1, Patterns.fall(120)],
+                [2, Patterns.fall(180)],
+                [3, Patterns.fall(240)],
+                [4, Patterns.explode({x: 150, num: 3, other: {color:0xff0000}})],
+                [4, Patterns.fall(120)],
+                [5.5, Patterns.explode({x: 300, num: 3, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: 450, other: {color:0xff0000}})],
+                [1, Patterns.fall(540)],
+                [3, Patterns.fall(540)],
+                [4, Patterns.fall(480)],
+                [5, Patterns.fall(360)],
+                [6, Patterns.fall(300)],
+                [6, Patterns.explode({x: Utils.random(50, 550), num: 3, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: Utils.random(50, 550), other: {color:0xff0000}})],
+                [1, Patterns.fall(420)],
+                [2, Patterns.fall(480)],
+                [3, Patterns.fall(420)],
+                [3.5, Patterns.fall(360)],
+                [4, Patterns.fall(240)],
+                [4, Patterns.explode({x: 150, num: 3, other: {color:0xff0000}})],
+                [5, Patterns.fall(180)],
+                [5.5, Patterns.explode({x: 300, num: 3, other: {color:0xff0000}})],
+                [6, Patterns.fall(240)],
+            ],
+            [
+                [1, Patterns.explode({x: 450, other: {color:0xff0000}})],
+                [1, Patterns.fall(120)],
+                [3, Patterns.fall(120)],
+                [4, Patterns.fall(180)],
+                [5, Patterns.fall(240)],
+                [6, Patterns.fall(300)],
+                [6, Patterns.explode({x: Utils.random(50, 550), num: 3, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: Utils.random(50, 550), other: {color:0xff0000}})],
+                [1, Patterns.fall(360)],
+                [3, Patterns.fall(360)],
+                [4, Patterns.fall(420)],
+                [4, Patterns.explode({x: 100, num: 3, other: {color:0xff0000}})],
+                [4, Patterns.explode({x: 500, num: 3, other: {color:0xff0000}})],
+                [5.5, Patterns.explode({x: 200, num: 3, other: {color:0xff0000}})],
+                [5.5, Patterns.explode({x: 400, num: 3, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: 300, num: 8, other: {color:0xff0000}})]
+            ]
         ];
+
+        this.effects = [
+            [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [],
+            [
+                [4, new Effects.BackgroundColorFade(0x1e1e46, 0x0e0e2a, this.getTime(3))]
+            ]
+        ]
     }
 }

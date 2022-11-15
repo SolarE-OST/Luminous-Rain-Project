@@ -18,7 +18,7 @@ export default class Stage extends Phaser.Scene {
     this.title = ""; // Title of stage
     this.artist = ""; // Artist of track for stage (usually Sakuzyo lol)
     this.subtitle = ""; // Subtitle (displayed under title)
-    this.songDuration = "0:00"; // Duration of song, display only
+    this.songDuration = "4:20"; // Duration of song, display only
     this.difficulty = 0; // Difficulty (1-10, sometimes 11+)
     this.tempo = 120; // Starting tempo of track (in beats per minute BPM)
     this.offset = 0; // How long to wait after starting music: decrease if bullets are too early, increase if bullets are too late
@@ -44,12 +44,12 @@ export default class Stage extends Phaser.Scene {
   preload() {
     this.loadingScene = this.scene.launch("Loading", this);
     this.doneLoading = false;
-    console.log("starting preload");
+    //console.log("starting preload");
     this.load.audio("graze", "assets/sfx/graze.wav");
     this.load.audio("hit", "assets/sfx/hit.wav");
     this.load.audio("life", "assets/sfx/extend.wav");
     this.load.audio("bgm", this.songPath);
-    console.log("preloaded");
+    //console.log("preloaded");
   }
 
   /**
@@ -230,6 +230,8 @@ export default class Stage extends Phaser.Scene {
     this.glow = this.add.layer();
     this.activeDroplets = [];
     this.collidingDroplets = this.physics.add.group();
+
+    this.activeEffects = [];
   }
 
   initCollisions() {
@@ -328,11 +330,25 @@ export default class Stage extends Phaser.Scene {
       }
     }
     this.timemap = this.timemap.sort((a, b) => a[0] - b[0]);
-    this.timemap.push([999999999, "idk"]);
+    this.timemap.push([999999999, "buffer"]);
+  }
+
+  generateEffectMap() {
+    this.effectMap = [];
+    for (let i = 0; i < this.effects.length; i++) {
+      let measure = this.effects[i];
+      let measureTimestamp = this.getTime((i + 1) * this.timeSignature);
+      for (let beat of measure) {
+        let timestamp = measureTimestamp + this.getTime(beat[0] - 1);
+        this.effectMap.push([timestamp, beat[1]]);
+      }
+    }
+    this.effectMap = this.effectMap.sort((a, b) => a[0] - b[0]);
+    this.effectMap.push([999999999, "buffer"]);
   }
 
   create() {
-    console.log("initializing");
+    //console.log("initializing");
     // loading circle (may implement progress bar later)
     //this.loadingCircle();
 
@@ -347,18 +363,19 @@ export default class Stage extends Phaser.Scene {
     // init all the game stuff
     this.initVariables();
     this.initGUI();
-    console.log("initializing music");
+    //console.log("initializing music");
     this.initMusic("bgm");
-    console.log("music initialized");
+    //console.log("music initialized");
     this.initPlayer();
     this.initControls();
     this.initGameObjects();
     this.initCollisions();
 
-    console.log("generating droplet map");
+    //console.log("generating droplet map");
     this.buildBeatmap();
     this.generateTimemap();
-    console.log("droplet map generated");
+    this.generateEffectMap();
+    //console.log("droplet map generated");
 
     // fade in transition
     this.cameras.main.setBackgroundColor(this.startingBackgroundColor);
@@ -458,6 +475,20 @@ export default class Stage extends Phaser.Scene {
     }
   }
 
+  tickEffects() {
+    let simultaneous = true;
+    if (this.effectMap.length > 1) {
+      while (simultaneous) {
+        if (this.t >= this.effectMap[0][0]) {
+          this.activeEffects.push(this.effectMap[0][1]);
+          this.effectMap.shift();
+        } else {
+          simultaneous = false;
+        }
+      }
+    }
+  }
+
   moveDroplets(dt=1) {
     for (let d of this.activeDroplets) {
       d.move(dt);
@@ -469,6 +500,15 @@ export default class Stage extends Phaser.Scene {
           d.display[displayElement].destroy();
         }
         this.activeDroplets = this.activeDroplets.filter((x) => x !== d);
+      }
+    }
+  }
+
+  runEffects(dt=1) {
+    for (let e of this.activeEffects) {
+      e.run(this, dt);
+      if (e.t >= e.duration) {
+        this.activeEffects = this.activeEffects.filter((x) => x !== e);
       }
     }
   }
@@ -598,6 +638,8 @@ export default class Stage extends Phaser.Scene {
 
     this.tickDroplets();
     this.moveDroplets((this.t - this.pt));
+    this.tickEffects();
+    this.runEffects((this.t - this.pt));
     this.pt = this.t;
 
     this.updatePlayer();
