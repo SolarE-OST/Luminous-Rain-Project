@@ -218,6 +218,10 @@ export default class Tracklist extends Phaser.Scene {
         });
 
         this.add.rectangle(275, 300, 550, 90, 0xdddddd, 0.2).setScrollFactor(0.1);
+
+        this.scrollbarLimit = 600 / (this.stageButtons.getLength() + 1)
+        this.scrollbar = this.add.rectangle(10, this.scrollbarLimit, 20, this.scrollbarLimit * 2, 0xaaaaaa, 0.7).setScrollFactor(0);
+        this.scrollbarY = this.scrollbarLimit;
         
 
         /*
@@ -255,6 +259,7 @@ export default class Tracklist extends Phaser.Scene {
                 this.scroll = Math.min(90 * (this.stageButtons.getLength() - 1), Math.max(0, this.scroll));
                 this.buttonIndex = Math.round(this.scroll / 90);
                 this.targetY = 300 - this.buttonIndex * 90;
+                this.scrollbarY = (this.buttonIndex + 1) * this.scrollbarLimit
             } else {
                 this.scroll = (this.scroll < 0) ? 0 : 90 * (this.stageButtons.getLength() - 1)
             }
@@ -282,6 +287,7 @@ export default class Tracklist extends Phaser.Scene {
         }
 
         this.buttonY -= (this.buttonY - this.targetY) * 0.3
+        this.scrollbar.y -= (this.scrollbar.y - this.scrollbarY) * 0.3;
 
         let tempY = this.buttonY;
         for (let button of this.stageButtons.getChildren()) {
@@ -289,12 +295,13 @@ export default class Tracklist extends Phaser.Scene {
             tempY += 90;
         }
 
+
         if (this.prevIndex !== this.buttonIndex) {
             this.stageInfo.destroy(true, true);
             this.createStageInfo();
         }
         this.prevIndex = this.buttonIndex;
-
+    
 
 
         this.cameras.main.pan((this.input.mousePointer.x + 910) * 0.3, (this.input.mousePointer.y + 700) * 0.3, 100, Phaser.Math.Easing.Quadratic.InOut, true);
