@@ -542,7 +542,43 @@ export default class LostMemory extends Stage {
                 [5.5, Patterns.explode({x: 400, num: 3, other: {color:0xff0000}})],
             ],
             [
-                [1, Patterns.explode({x: 300, num: 8, other: {color:0xff0000}})]
+                [1, Patterns.explode({x: 300, num: 8, other: {color:0xff0000}})],
+                [4, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 6, scatter: 0.2, other: {color:0xff0000}})],
+                [5.5, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 3, scatter: 0.2, other: {color:0xff0000}})],
+                [6, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 4, scatter: 0.2, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 6, scatter: 0.2, other: {color:0xff0000}})],
+                [4, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 6, scatter: 0.2, other: {color:0xff0000}})],
+                [5.5, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 3, scatter: 0.2, other: {color:0xff0000}})],
+                [6, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 4, scatter: 0.2, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 6, scatter: 0.2, other: {color:0xff0000}})],
+                [4, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 6, scatter: 0.2, other: {color:0xff0000}})],
+                [5.5, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 3, scatter: 0.2, other: {color:0xff0000}})],
+                [6, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 4, scatter: 0.2, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 6, scatter: 0.2, other: {color:0xff0000}})],
+                [4, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 6, scatter: 0.2, other: {color:0xff0000}})],
+                [5.5, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 3, scatter: 0.2, other: {color:0xff0000}})],
+                [6, Patterns.explode({x: Utils.random(50, 550), y: Utils.random(50, 150), num: 4, scatter: 0.2, other: {color:0xff0000}})],
+            ],
+            [
+                [1, Patterns.explode({x: 300, y: 100, num: 8, other: {color: 0xff0000}})]
+            ],
+            [
+                [1, Patterns.explode({x: 200, y: 100, num: 8, warnTime: this.getTime(4), other: {color: 0xff00ff}})],
+                [1, Patterns.explode({x: 400, y: 100, num: 8, warnTime: this.getTime(3), other: {color: 0xff00ff}})],
+                [1, Patterns.rain({
+                    duration: this.getTime(48),
+                    interval: 12,
+                    vy: 2,
+                    other: {
+                        color: 0x00ffff
+                    }
+                })]
             ]
         ];
 
@@ -550,6 +586,9 @@ export default class LostMemory extends Stage {
             [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [],
             [
                 [4, new Effects.BackgroundColorFade(0x1e1e46, 0x0e0e2a, this.getTime(3))]
+            ], [], [], [], []
+            [
+                [3, new Effects.BackgroundColorFade(0x0e0e2a, 0x1e1e46, this.getTime(4))]
             ]
         ]
     }

@@ -249,7 +249,9 @@ export let Graphics = {
     xscale = 1,
     align = "center",
     onHover = () => this.add.group(),
-    scrollFactor=0.1}) {
+    scrollFactor=0.1,
+    data = {},
+  }) {
     let buttonFrame = this.add.rectangle(x, y, w, h, 0x646496).setStrokeStyle(10, 0x505082).setScrollFactor(scrollFactor);
     /*
     let buttonFrame = this.graphics.fillRoundedRect(x - w / 2, y - h / 2, w, h, 20);
@@ -313,6 +315,7 @@ export let Graphics = {
     let buttonGroup = this.add.group();
     buttonGroup.add(buttonFrame);
     buttonGroup.add(buttonText);
+    buttonGroup.data = data;
     return buttonGroup;
   },
 
